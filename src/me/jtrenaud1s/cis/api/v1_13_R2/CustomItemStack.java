@@ -14,27 +14,27 @@ import java.util.List;
 public class CustomItemStack extends ACustomItemStack implements CustomNBT {
     private net.minecraft.server.v1_13_R2.ItemStack item;
 
-    public CustomItemStack(){
+    CustomItemStack(){
         super();
         item = CraftItemStack.asNMSCopy(this);
     }
 
-    public CustomItemStack(Material type) {
+    CustomItemStack(Material type) {
         super(type);
         item = CraftItemStack.asNMSCopy(this);
     }
 
-    public CustomItemStack(Material type, int amount) {
+    CustomItemStack(Material type, int amount) {
         super(type, amount);
         item = CraftItemStack.asNMSCopy(this);
     }
 
-    public CustomItemStack(ItemStack stack) throws IllegalArgumentException {
+    CustomItemStack(ItemStack stack) throws IllegalArgumentException {
         super(stack);
         item = CraftItemStack.asNMSCopy(this);
     }
 
-    public CustomItemStack(CustomItemStack stack) {
+    CustomItemStack(CustomItemStack stack) {
         super(stack);
         item = CraftItemStack.asNMSCopy(this);
     }
@@ -48,7 +48,7 @@ public class CustomItemStack extends ACustomItemStack implements CustomNBT {
         NBTBase base = null;
 
         if (value instanceof Boolean) {
-            base = new NBTTagByte((byte)(((Boolean)value).booleanValue() ? 1 : 0));
+            base = new NBTTagByte((byte)((Boolean) value ? 1 : 0));
         } else if (value instanceof Long) {
             base = new NBTTagLong((Long) value);
         } else if (value instanceof Integer) {
@@ -74,16 +74,18 @@ public class CustomItemStack extends ACustomItemStack implements CustomNBT {
 
     @Override
     public boolean hasMetadata(String metadata) {
-        return item.getTag() == null ? false : item.getTag().hasKey(metadata);
+        return item.getTag() != null && item.getTag().hasKey(metadata);
     }
 
     @Override
     public Object getMetadata(String metadata) {
         if(!hasMetadata( metadata))return null;
+        assert item.getTag() != null;
         return getObject(item.getTag().get(metadata));
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public Object getObject(Object tagO){
         NBTBase tag = (NBTBase) tagO;
         if(tag instanceof NBTTagEnd){
@@ -103,7 +105,7 @@ public class CustomItemStack extends ACustomItemStack implements CustomNBT {
         }else if(tag instanceof NBTTagByteArray){
             return ((NBTTagByteArray) tag).c();
         }else if(tag instanceof NBTTagString){
-            return ((NBTTagString) tag).b_();
+            return tag.b_();
         }else if(tag instanceof NBTTagList){
             List<NBTBase> list = null;
             try {
