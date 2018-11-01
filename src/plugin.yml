@@ -1,0 +1,9 @@
+name: CustomItemStack
+author: jtrenaud1s
+version: 1.0
+api-version: 1.13
+main: me.jtrenaud1s.cis.CustomItemMain
+commands:
+  citem:
+    description: "Gives deathstick"
+    usage: /<command>
