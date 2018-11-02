@@ -5,23 +5,23 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 public abstract class ACustomItemStack extends ItemStack implements CustomNBT {
-    public ACustomItemStack() {
+    protected ACustomItemStack() {
         super();
     }
 
-    public ACustomItemStack(Material type) {
+    protected ACustomItemStack(Material type) {
         super(type);
     }
 
-    public ACustomItemStack(Material type, int amount) {
+    protected ACustomItemStack(Material type, int amount) {
         super(type, amount);
     }
 
-    public ACustomItemStack(ItemStack stack) throws IllegalArgumentException {
+    protected ACustomItemStack(ItemStack stack) throws IllegalArgumentException {
         super(stack);
     }
 
-    public ACustomItemStack(ACustomItemStack stack) {
+    protected ACustomItemStack(ACustomItemStack stack) {
         super(stack);
     }
 }
